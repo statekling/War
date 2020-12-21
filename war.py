@@ -78,10 +78,14 @@ while game_on:
     
     if len(player1.all_cards) == 0:
         print(player1.name +' has lost')
+        print(player1)
+        print(player2)
         game_on = False
         break      
     if len(player2.all_cards) == 0:
         print(player2.name + " has lost")
+        print(player1)
+        print(player2)
         game_on = False
         break
     
@@ -120,7 +124,7 @@ while game_on:
             game_on = False
             break      
         if len(player2.all_cards) < 5:
-            print(player2.name + " has lost")
+            print(player2.name + "has lost")
             print(player1)
             print(player2)
             game_on = False
@@ -144,5 +148,4 @@ while game_on:
             player2.all_cards.extend(player1_hand)
             player2.all_cards.extend(player2_hand)
             at_war = False
-        break
-
+            break
