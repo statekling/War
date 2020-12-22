@@ -74,16 +74,16 @@ game_on = True
 
 while game_on:
     round_num += 1
-    print(f"Round {round_num}")
+    print(f"Round {round_num}:\n")
     
     if len(player1.all_cards) == 0:
-        print(player1.name +' has lost')
+        print(player1.name +' is out of cards.\n' + player1.name + ' has lost!')
         print(player1)
         print(player2)
         game_on = False
         break      
     if len(player2.all_cards) == 0:
-        print(player2.name + " has lost")
+        print(player2.name + ' is out of cards.\n' + player2.name + ' has lost!')
         print(player1)
         print(player2)
         game_on = False
@@ -103,13 +103,17 @@ while game_on:
     at_war = True
 
     if player1_hand[-1].value > player2_hand[-1].value:
-        print(player1.name + " Wins!")
+        print(player1.name + " shows " + str(player1_hand[-1]))
+        print(player2.name + " shows " + str(player2_hand[-1]))
+        print(player1.name + " Wins!\n")
         player1.add_cards(player2_hand)
         player1.add_cards(player1_hand)
         at_war = False
 
     elif player1_hand[-1].value < player2_hand[-1].value:
-        print(player2.name + " Wins!")
+        print(player1.name + " shows " + str(player1_hand[-1]))
+        print(player2.name + " shows " + str(player2_hand[-1]))
+        print(player2.name + " Wins!\n")
         player2.add_cards(player1_hand)
         player2.add_cards(player2_hand)
         at_war = False
@@ -118,34 +122,52 @@ while game_on:
 
     while at_war:
         if len(player1.all_cards) < 5:
-            print(player1.name +' has lost')
+            print(player1.name +' does not have enough cards to declare war.')
+            print(player2.name + " Wins!\n")
             print(player1)
             print(player2)
             game_on = False
             break      
         if len(player2.all_cards) < 5:
-            print(player2.name + "has lost")
+            print(player2.name + " Does not have enough cards to declare war.")
+            print(player1.name + " Wins!\n")
             print(player1)
             print(player2)
             game_on = False
             break
-        print(" AT WAR!!! ")
-        for i in range(5):
+        print("AT WAR!!! \n")
+        for i in range(4):
             player1_hand.append(player1.remove_one())
-        for i in range(5):
+        for i in range(4):
             player2_hand.append(player2.remove_one())
+         
+        print(player1.name + " drew:")
+        for cards in player1_hand:
+                print(cards)
+        print('\n')
+        
+        print(player2.name + " drew:")
+        for cards in player2_hand:
+            print(cards)
+        print('\n')
 
 
 
         if player1_hand[-1].value > player2_hand[-1].value:
-            print(player1.name + " Wins!")
-            player1.all_cards.extend(player2_hand)
-            player1.all_cards.extend(player1_hand)
+            print(str(player1_hand[-1]) + ' beats ' + str(player2_hand[-1])+'!')
+            print(player1.name + " Wins!\n")
+            player1.add_cards(player2_hand)
+            player1.add_cards(player1_hand)
             at_war = False
 
         if player1_hand[-1].value < player2_hand[-1].value:
-            print(player2.name + " Wins!")
-            player2.all_cards.extend(player1_hand)
-            player2.all_cards.extend(player2_hand)
+            print(str(player2_hand[-1]) + ' beats ' + str(player1_hand[-1])+'!')
+            print(player2.name + " Wins!\n")
+            player2.add_cards(player1_hand)
+            player2.add_cards(player2_hand)
             at_war = False
-            break
+            
+        if  player1_hand[-1].value == player2_hand[-1].value:
+            print(str(player1_hand[-1]) + ' ties ' + str(player2_hand[-1])+'!')
+            print("Dealing 5 more!\n")
+        break
